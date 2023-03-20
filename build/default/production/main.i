@@ -9292,25 +9292,62 @@ char USB_Out_Buffer[64];
 char buffer[64];
 int cont=0;
 void USBTask(void);
+
+void __attribute__((picinterrupt(("low_priority")))) ISR (void);
+
+
 void main(void)
 {
 
 
 
  SYSTEM_Initialize();
-# 75 "main.c"
+# 79 "main.c"
     T0CON=0b00000110;
-# 85 "main.c"
+# 89 "main.c"
     TMR0L=18661 & 255;
     TMR0H=18661 >> 8;
     TMR0ON=1;
 
     TMR0IF=0;
+    TMR0IP=0;
+    TMR0IE=1;
 
  while (1){
 
     USBTask();
+
+
+ }
+}
+void USBTask(void){
+ if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
+    return;
+ uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
+ if((cdc_trf_state == 0))
+ {
+ if(READ != 0){
+    sprintf(buffer,"t%c h%c \n",'i','o');
+    putrsUSBUSART(buffer);
+ }
+ _delay((unsigned long)((20)*(48000000/4000.0)));
+
+ }
+ CDCTxService();
+}
+void __attribute__((picinterrupt(("low_priority")))) ISR (void){
     if(TMR0IF==1){
+
+        if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
+            return;
+        if((cdc_trf_state == 0))
+        {
+            sprintf(buffer,"t%c h%c \n",22,48);
+            putrsUSBUSART(buffer);
+        }
+        CDCTxService();
+
+
         LATC0=LATC0 ^ 1;
         TMR0L=18661 & 255;
 
@@ -9322,21 +9359,4 @@ void main(void)
         TMR0IF=0;
 
     }
-
- }
-}
-void USBTask(void){
- if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
-    return;
- uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
- if((cdc_trf_state == 0))
- {
- if(READ != 0){
-    sprintf(buffer,"t%c h%c \n",22,48);
-    putrsUSBUSART(buffer);
- }
- _delay((unsigned long)((20)*(48000000/4000.0)));
-
- }
- CDCTxService();
 }

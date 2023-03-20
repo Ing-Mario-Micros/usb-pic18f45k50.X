@@ -49,11 +49,16 @@
 #include "interrupt_manager.h"
 #include "mcc.h"
 
+//#define LED_CPU LATC0         //Pin del led de CPU asociado al funcionamiento del micro
+
+
+
 void  INTERRUPT_Initialize (void)
 {
     // Enable Interrupt Priority Vectors
     
     USBIE=1;
+    USBIP=1;
     RCONbits.IPEN = 1;
 
     // Assign peripheral interrupt priority vectors
@@ -68,7 +73,7 @@ void  INTERRUPT_Initialize (void)
 
 }
 
-void __interrupt() INTERRUPT_InterruptManagerHigh (void)
+void __interrupt(high_priority) INTERRUPT_InterruptManagerHigh (void)
 {
    // interrupt handler
     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)
@@ -83,6 +88,7 @@ void __interrupt() INTERRUPT_InterruptManagerHigh (void)
         //Unhandled Interrupt
     }
 }
+
 
 /**
  End of File

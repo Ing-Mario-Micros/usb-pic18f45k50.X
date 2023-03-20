@@ -9152,11 +9152,16 @@ void OSCILLATOR_Initialize(void);
 # 50 "mcc_generated_files/interrupt_manager.c" 2
 
 
+
+
+
+
 void INTERRUPT_Initialize (void)
 {
 
 
     USBIE=1;
+    USBIP=1;
     RCONbits.IPEN = 1;
 
 
@@ -9171,7 +9176,7 @@ void INTERRUPT_Initialize (void)
 
 }
 
-void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManagerHigh (void)
+void __attribute__((picinterrupt(("high_priority")))) INTERRUPT_InterruptManagerHigh (void)
 {
 
     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)

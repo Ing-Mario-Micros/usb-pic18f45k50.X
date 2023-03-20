@@ -52,6 +52,10 @@ char USB_Out_Buffer[64];
 char buffer[64];
 int cont=0;
 void USBTask(void);
+
+void __interrupt (low_priority) ISR (void);  //Interrupciones de baja prioridad
+
+
 void main(void)
 {
  // INTERRUPT_GlobalInterruptEnable();//activar interrupciones
@@ -87,11 +91,44 @@ void main(void)
     TMR0ON=1;         //Encendido del Timer 0
     /** Configuración de interrupción del timer 0**/
     TMR0IF=0; //Bandera de Interrupción timer 0 en Cero
+    TMR0IP=0; //Configuración de prioridades del timer0 como baja prioridad
+    TMR0IE=1; //Activación de la Interrupción para desbordamiento Timer0
  
  while (1){
     //USBDeviceTasks();//Se tiene que realizar el llamado de este metodo para que funcione correctamente
     USBTask(); // Add your application code
+    
+ 
+ }
+}
+void USBTask(void){
+ if(USBGetDeviceState() < CONFIGURED_STATE || (USBIsDeviceSuspended() == true)) 
+    return;//comprobar la conexión
+ uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
+ if(USBUSARTIsTxTrfReady()) //Si el Buffer de salida esta libre
+ {
+ if(READ != 0){
+    sprintf(buffer,"t%c h%c \n",'i','o');
+    putrsUSBUSART(buffer); //escribir 
+ }
+ __delay_ms(20);
+ 
+ }
+ CDCTxService(); //Procesa servicio USB
+}
+void __interrupt (low_priority) ISR (void){  //Interrupciones de baja prioridad
     if(TMR0IF==1){
+        /**Envio de datos por puerto USB de forma periodica 0.5Seg**/
+        if(USBGetDeviceState() < CONFIGURED_STATE || (USBIsDeviceSuspended() == true)) 
+            return;//comprobar la conexión
+        if(USBUSARTIsTxTrfReady()) //Si el Buffer de salida esta libre
+        {
+            sprintf(buffer,"t%c h%c \n",22,48);//Concatenación de datos
+            putrsUSBUSART(buffer); //escribir
+        }
+        CDCTxService(); //Procesa servicio USB
+        
+        
         LED_CPU=LED_CPU ^ 1;
         TMR0L=18661 & 255; /* para cargar el valor de precarga se divide
                            el numero en dos registros el alto y el bajo
@@ -103,23 +140,6 @@ void main(void)
         TMR0IF=0;         /*se pone la bandera de interrupción en 0 para que
                            vuelva a ocurrir*/
     }
- 
- }
-}
-void USBTask(void){
- if(USBGetDeviceState() < CONFIGURED_STATE || (USBIsDeviceSuspended() == true)) 
-    return;//comprobar la conexión
- uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
- if(USBUSARTIsTxTrfReady()) //Si el Buffer de salida esta libre
- {
- if(READ != 0){
-    sprintf(buffer,"t%c h%c \n",22,48);
-    putrsUSBUSART(buffer); //escribir 
- }
- __delay_ms(20);
- 
- }
- CDCTxService(); //Procesa servicio USB
 }
 /**
 End of File
