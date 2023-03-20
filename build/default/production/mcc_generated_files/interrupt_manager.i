@@ -9155,6 +9155,8 @@ void OSCILLATOR_Initialize(void);
 void INTERRUPT_Initialize (void)
 {
 
+
+    USBIE=1;
     RCONbits.IPEN = 1;
 
 
@@ -9163,6 +9165,10 @@ void INTERRUPT_Initialize (void)
     IPR3bits.USBIP = 1;
 
 
+    PEIE=1;
+    IPEN=1;
+    GIE=1;
+
 }
 
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManagerHigh (void)
@@ -9170,10 +9176,13 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManagerHigh (void)
 
     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)
     {
+
         USBDeviceTasks();
+        USBIF=0;
     }
     else
     {
+
 
     }
 }

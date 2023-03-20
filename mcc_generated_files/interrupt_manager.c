@@ -52,13 +52,19 @@
 void  INTERRUPT_Initialize (void)
 {
     // Enable Interrupt Priority Vectors
+    
+    USBIE=1;
     RCONbits.IPEN = 1;
 
     // Assign peripheral interrupt priority vectors
 
     // USBI - high priority
     IPR3bits.USBIP = 1;
-
+    
+    
+    PEIE=1;   //Activación de interrupción por perifericos
+    IPEN=1;   //Activación de esquema de interrupciones
+    GIE=1;    //Activación global de interrupciones
 
 }
 
@@ -66,11 +72,14 @@ void __interrupt() INTERRUPT_InterruptManagerHigh (void)
 {
    // interrupt handler
     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)
-    {
+    {   
+        //LATC2=1;  //LED de comprobación para ejecución de interrupción
         USB_USBDeviceTasks();
+        USBIF=0; //Reset de la bandera de interrupción USB en cero
     }
     else
     {
+        //LATC2=0;  //LED de comprobación para ejecución de interrupción
         //Unhandled Interrupt
     }
 }

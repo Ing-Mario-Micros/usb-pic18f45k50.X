@@ -9308,7 +9308,7 @@ void main(void)
     TMR0IF=0;
 
  while (1){
-    USBDeviceTasks();
+
     USBTask();
     if(TMR0IF==1){
         LATC0=LATC0 ^ 1;

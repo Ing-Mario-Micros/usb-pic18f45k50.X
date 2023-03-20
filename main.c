@@ -89,7 +89,7 @@ void main(void)
     TMR0IF=0; //Bandera de Interrupción timer 0 en Cero
  
  while (1){
-    USBDeviceTasks();//Se tiene que realizar el llamado de este metodo para que funcione correctamente
+    //USBDeviceTasks();//Se tiene que realizar el llamado de este metodo para que funcione correctamente
     USBTask(); // Add your application code
     if(TMR0IF==1){
         LED_CPU=LED_CPU ^ 1;

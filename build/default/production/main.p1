@@ -18,9 +18,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "16350
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 16350: extern volatile __bit TMR0IF __attribute__((address(0x7F92)));
 [v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
-"303 ./mcc_generated_files/usb/usb_device.h
-[; ;./mcc_generated_files/usb/usb_device.h: 303: void USBDeviceTasks(void);
-[v _USBDeviceTasks `(v ~T0 @X0 0 ef ]
 "54 main.c
 [; ;main.c: 54: void USBTask(void);
 [v _USBTask `(v ~T0 @X0 0 ef ]
@@ -730,9 +727,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 91:  while (1){
 [e :U 707 ]
 {
-"92
-[; ;main.c: 92:     USBDeviceTasks();
-[e ( _USBDeviceTasks ..  ]
 "93
 [; ;main.c: 93:     USBTask();
 [e ( _USBTask ..  ]

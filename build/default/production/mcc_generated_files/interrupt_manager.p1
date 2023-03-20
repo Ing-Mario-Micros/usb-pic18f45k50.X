@@ -1,5 +1,8 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"12139 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
+"16689 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 16689: extern volatile __bit USBIE __attribute__((address(0x7D1A)));
+[v _USBIE `Vb ~T0 @X0 0 e@32026 ]
+"12139
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 12139:     struct {
 [s S541 :1 `uc 1 ]
 [n S541 . NOT_BOR ]
@@ -49,6 +52,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "6921
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 6921: extern volatile IPR3bits_t IPR3bits __attribute__((address(0xFA5)));
 [v _IPR3bits `VS281 ~T0 @X0 0 e@4005 ]
+"15552
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 15552: extern volatile __bit PEIE __attribute__((address(0x7F96)));
+[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
+"15093
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 15093: extern volatile __bit IPEN __attribute__((address(0x7E87)));
+[v _IPEN `Vb ~T0 @X0 0 e@32391 ]
+"14898
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 14898: extern volatile __bit GIE __attribute__((address(0x7F97)));
+[v _GIE `Vb ~T0 @X0 0 e@32663 ]
 [t ~ __interrupt . k ]
 [t T1 __interrupt ]
 "6790
@@ -88,6 +100,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "303 mcc_generated_files/usb/usb_device.h
 [; ;mcc_generated_files/usb/usb_device.h: 303: void USBDeviceTasks(void);
 [v _USBDeviceTasks `(v ~T0 @X0 0 ef ]
+"16692 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 16692: extern volatile __bit USBIF __attribute__((address(0x7D22)));
+[v _USBIF `Vb ~T0 @X0 0 e@32034 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 54: __asm("SRCON1 equ 0F57h");
 [; <" SRCON1 equ 0F57h ;# ">
@@ -720,49 +735,64 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _INTERRUPT_Initialize ]
 [f ]
-"55
-[; ;mcc_generated_files/interrupt_manager.c: 55:     RCONbits.IPEN = 1;
+"56
+[; ;mcc_generated_files/interrupt_manager.c: 56:     USBIE=1;
+[e = _USBIE -> -> 1 `i `b ]
+"57
+[; ;mcc_generated_files/interrupt_manager.c: 57:     RCONbits.IPEN = 1;
 [e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-"60
-[; ;mcc_generated_files/interrupt_manager.c: 60:     IPR3bits.USBIP = 1;
+"62
+[; ;mcc_generated_files/interrupt_manager.c: 62:     IPR3bits.USBIP = 1;
 [e = . . _IPR3bits 0 2 -> -> 1 `i `uc ]
-"63
-[; ;mcc_generated_files/interrupt_manager.c: 63: }
+"65
+[; ;mcc_generated_files/interrupt_manager.c: 65:     PEIE=1;
+[e = _PEIE -> -> 1 `i `b ]
+"66
+[; ;mcc_generated_files/interrupt_manager.c: 66:     IPEN=1;
+[e = _IPEN -> -> 1 `i `b ]
+"67
+[; ;mcc_generated_files/interrupt_manager.c: 67:     GIE=1;
+[e = _GIE -> -> 1 `i `b ]
+"69
+[; ;mcc_generated_files/interrupt_manager.c: 69: }
 [e :UE 703 ]
 }
 [v $root$_INTERRUPT_InterruptManagerHigh `(v ~T0 @X0 0 e ]
-"65
-[; ;mcc_generated_files/interrupt_manager.c: 65: void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManagerHigh (void)
+"71
+[; ;mcc_generated_files/interrupt_manager.c: 71: void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManagerHigh (void)
 [v _INTERRUPT_InterruptManagerHigh `(v ~T1 @X0 1 ef ]
-"66
-[; ;mcc_generated_files/interrupt_manager.c: 66: {
+"72
+[; ;mcc_generated_files/interrupt_manager.c: 72: {
 {
 [e :U _INTERRUPT_InterruptManagerHigh ]
 [f ]
-"68
-[; ;mcc_generated_files/interrupt_manager.c: 68:     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)
+"74
+[; ;mcc_generated_files/interrupt_manager.c: 74:     if(PIE3bits.USBIE == 1 && PIR3bits.USBIF == 1)
 [e $ ! && == -> . . _PIE3bits 0 2 `i -> 1 `i == -> . . _PIR3bits 0 2 `i -> 1 `i 705  ]
-"69
-[; ;mcc_generated_files/interrupt_manager.c: 69:     {
+"75
+[; ;mcc_generated_files/interrupt_manager.c: 75:     {
 {
-"70
-[; ;mcc_generated_files/interrupt_manager.c: 70:         USBDeviceTasks();
+"77
+[; ;mcc_generated_files/interrupt_manager.c: 77:         USBDeviceTasks();
 [e ( _USBDeviceTasks ..  ]
-"71
-[; ;mcc_generated_files/interrupt_manager.c: 71:     }
+"78
+[; ;mcc_generated_files/interrupt_manager.c: 78:         USBIF=0;
+[e = _USBIF -> -> 0 `i `b ]
+"79
+[; ;mcc_generated_files/interrupt_manager.c: 79:     }
 }
 [e $U 706  ]
-"72
-[; ;mcc_generated_files/interrupt_manager.c: 72:     else
+"80
+[; ;mcc_generated_files/interrupt_manager.c: 80:     else
 [e :U 705 ]
-"73
-[; ;mcc_generated_files/interrupt_manager.c: 73:     {
+"81
+[; ;mcc_generated_files/interrupt_manager.c: 81:     {
 {
-"75
-[; ;mcc_generated_files/interrupt_manager.c: 75:     }
+"84
+[; ;mcc_generated_files/interrupt_manager.c: 84:     }
 }
 [e :U 706 ]
-"76
-[; ;mcc_generated_files/interrupt_manager.c: 76: }
+"85
+[; ;mcc_generated_files/interrupt_manager.c: 85: }
 [e :UE 704 ]
 }
