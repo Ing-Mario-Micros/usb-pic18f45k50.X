@@ -41,9 +41,9 @@ party
 #include<string.h>
 #include "mcc_generated_files/mcc.h"
 
-#define LED_CPU LATC1         //Pin del led de CPU asociado al funcionamiento del micro
+#define LED_CPU LATC0         //Pin del led de CPU asociado al funcionamiento del micro
 #define LED_TEST LATC2        //Pin del led de prueba asociado a tareas especificas
-#define LED_FAULT LATC0       //Pin del led de Error asociado a bloqueos en el micro
+#define LED_FAULT LATC1       //Pin del led de Error asociado a bloqueos en el micro
 
 /*
  Main application
@@ -70,16 +70,45 @@ void main(void)
  //INTERRUPT_PeripheralInterruptEnable();
  // Disable the Peripheral Interrupts
  //INTERRUPT_PeripheralInterruptDisable();
- while (1)
- {
- USBDeviceTasks();
- USBTask(); // Add your application code
+ 
+ /*-------------------- Configuración de timer 0 ----------------------------*/
+    T0CON=0b00000110; /*Configuración del timer0 correspondiente 
+                     * a un tiempo aproximado de 0.5seg usando la ecuación
+                     * (2^N)-((Tsflujo*Fbus)/PS)= Precarga
+                     * la frecuencia de Bus "Fbus" es igual a la drecuencia de reloj
+                     * divididad 4, en esté caso 48MHz/4 = 12MHz
+                     * La precarga debe de ser menor a 2^N que es la
+                     * resolución del timer 2^16 = 65536
+                     * 2^16 -((0.5seg*12x10^6Hz)/128)=18661
+                     * La precarga se suma al valor del registro TMR0L
+                     */
+    TMR0L=18661 & 255;//precarga del registro del timer0, la explicación está en
+    TMR0H=18661 >> 8; //la función de interrupción del Timer 0
+    TMR0ON=1;         //Encendido del Timer 0
+    /** Configuración de interrupción del timer 0**/
+    TMR0IF=0; //Bandera de Interrupción timer 0 en Cero
+ 
+ while (1){
+    USBDeviceTasks();//Se tiene que realizar el llamado de este metodo para que funcione correctamente
+    USBTask(); // Add your application code
+    if(TMR0IF==1){
+        LED_CPU=LED_CPU ^ 1;
+        TMR0L=18661 & 255; /* para cargar el valor de precarga se divide
+                           el numero en dos registros el alto y el bajo
+                           para la parte alta baja se toma la precarga y
+                           se realiza una and de 255 (0b1111 1111) para 
+                           que de esta manera solo se tenga el Valor bajo*/
+        TMR0H=18661 >> 8;  /* Para la parte alte se realiza un corrimiento de 
+                           el valor de precarga de ocho posiciones*/
+        TMR0IF=0;         /*se pone la bandera de interrupción en 0 para que
+                           vuelva a ocurrir*/
+    }
  
  }
 }
 void USBTask(void){
  if(USBGetDeviceState() < CONFIGURED_STATE || (USBIsDeviceSuspended() == true)) 
-return;//comprobar la conexión
+    return;//comprobar la conexión
  uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
  if(USBUSARTIsTxTrfReady()) //Si el Buffer de salida esta libre
  {

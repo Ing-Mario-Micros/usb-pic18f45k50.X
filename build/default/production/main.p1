@@ -3,14 +3,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 "71 ./mcc_generated_files/mcc.h
 [; ;./mcc_generated_files/mcc.h: 71: void SYSTEM_Initialize(void);
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
+"12439 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 12439: extern volatile unsigned char T0CON __attribute__((address(0xFD5)));
+[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
+"12516
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 12516: extern volatile unsigned char TMR0L __attribute__((address(0xFD6)));
+[v _TMR0L `Vuc ~T0 @X0 0 e@4054 ]
+"12536
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 12536: extern volatile unsigned char TMR0H __attribute__((address(0xFD7)));
+[v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
+"16356
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 16356: extern volatile __bit TMR0ON __attribute__((address(0x7EAF)));
+[v _TMR0ON `Vb ~T0 @X0 0 e@32431 ]
+"16350
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 16350: extern volatile __bit TMR0IF __attribute__((address(0x7F92)));
+[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
 "303 ./mcc_generated_files/usb/usb_device.h
 [; ;./mcc_generated_files/usb/usb_device.h: 303: void USBDeviceTasks(void);
 [v _USBDeviceTasks `(v ~T0 @X0 0 ef ]
 "54 main.c
 [; ;main.c: 54: void USBTask(void);
 [v _USBTask `(v ~T0 @X0 0 ef ]
-"81
-[; ;main.c: 81:  if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
+"15204 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 15204: extern volatile __bit LATC0 __attribute__((address(0x7C58)));
+[v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
+"110 main.c
+[; ;main.c: 110:  if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
 [c E5605 0 1 2 4 8 16 32 .. ]
 [n E5605 . DETACHED_STATE ATTACHED_STATE POWERED_STATE DEFAULT_STATE ADR_PENDING_STATE ADDRESS_STATE CONFIGURED_STATE  ]
 "2050 ./mcc_generated_files/usb/usb_device.h
@@ -693,78 +711,111 @@ Version 4.0 HI-TECH Software Intermediate Code
 "60
 [; ;main.c: 60:  SYSTEM_Initialize();
 [e ( _SYSTEM_Initialize ..  ]
-"73
-[; ;main.c: 73:  while (1)
-[e :U 707 ]
-"74
-[; ;main.c: 74:  {
-{
 "75
-[; ;main.c: 75:  USBDeviceTasks();
+[; ;main.c: 75:     T0CON=0b00000110;
+[e = _T0CON -> -> 6 `i `uc ]
+"85
+[; ;main.c: 85:     TMR0L=18661 & 255;
+[e = _TMR0L -> & -> 18661 `i -> 255 `i `uc ]
+"86
+[; ;main.c: 86:     TMR0H=18661 >> 8;
+[e = _TMR0H -> >> -> 18661 `i -> 8 `i `uc ]
+"87
+[; ;main.c: 87:     TMR0ON=1;
+[e = _TMR0ON -> -> 1 `i `b ]
+"89
+[; ;main.c: 89:     TMR0IF=0;
+[e = _TMR0IF -> -> 0 `i `b ]
+"91
+[; ;main.c: 91:  while (1){
+[e :U 707 ]
+{
+"92
+[; ;main.c: 92:     USBDeviceTasks();
 [e ( _USBDeviceTasks ..  ]
-"76
-[; ;main.c: 76:  USBTask();
+"93
+[; ;main.c: 93:     USBTask();
 [e ( _USBTask ..  ]
-"78
-[; ;main.c: 78:  }
+"94
+[; ;main.c: 94:     if(TMR0IF==1){
+[e $ ! == -> _TMR0IF `i -> 1 `i 709  ]
+{
+"95
+[; ;main.c: 95:         LATC0=LATC0 ^ 1;
+[e = _LATC0 -> ^ -> _LATC0 `i -> 1 `i `b ]
+"96
+[; ;main.c: 96:         TMR0L=18661 & 255;
+[e = _TMR0L -> & -> 18661 `i -> 255 `i `uc ]
+"101
+[; ;main.c: 101:         TMR0H=18661 >> 8;
+[e = _TMR0H -> >> -> 18661 `i -> 8 `i `uc ]
+"103
+[; ;main.c: 103:         TMR0IF=0;
+[e = _TMR0IF -> -> 0 `i `b ]
+"105
+[; ;main.c: 105:     }
+}
+[e :U 709 ]
+"107
+[; ;main.c: 107:  }
 }
 [e :U 706 ]
 [e $U 707  ]
 [e :U 708 ]
-"79
-[; ;main.c: 79: }
+"108
+[; ;main.c: 108: }
 [e :UE 705 ]
 }
-"80
-[; ;main.c: 80: void USBTask(void){
+"109
+[; ;main.c: 109: void USBTask(void){
 [v _USBTask `(v ~T0 @X0 1 ef ]
 {
 [e :U _USBTask ]
 [f ]
-"81
-[; ;main.c: 81:  if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
-[e $ ! || < -> _USBDeviceState `ui -> . `E5605 6 `ui == -> . . _UCONbits 0 1 `i -> 1 `i 710  ]
-"82
-[; ;main.c: 82: return;
-[e $UE 709  ]
-[e :U 710 ]
-"83
-[; ;main.c: 83:  uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
+"110
+[; ;main.c: 110:  if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
+[e $ ! || < -> _USBDeviceState `ui -> . `E5605 6 `ui == -> . . _UCONbits 0 1 `i -> 1 `i 711  ]
+"111
+[; ;main.c: 111:     return;
+[e $UE 710  ]
+[e :U 711 ]
+"112
+[; ;main.c: 112:  uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
 [v _READ `uc ~T0 @X0 1 a ]
 [e = _READ ( _getsUSBUSART (2 , -> &U _USB_Out_Buffer `*uc -> -> 64 `i `uc ]
-"84
-[; ;main.c: 84:  if((cdc_trf_state == 0))
-[e $ ! == -> _cdc_trf_state `i -> 0 `i 711  ]
-"85
-[; ;main.c: 85:  {
+"113
+[; ;main.c: 113:  if((cdc_trf_state == 0))
+[e $ ! == -> _cdc_trf_state `i -> 0 `i 712  ]
+"114
+[; ;main.c: 114:  {
 {
-"86
-[; ;main.c: 86:  if(READ != 0){
-[e $ ! != -> _READ `i -> 0 `i 712  ]
+"115
+[; ;main.c: 115:  if(READ != 0){
+[e $ ! != -> _READ `i -> 0 `i 713  ]
 {
-"87
-[; ;main.c: 87:     sprintf(buffer,"t%c h%c \n",22,48);
+"116
+[; ;main.c: 116:     sprintf(buffer,"t%c h%c \n",22,48);
 [e ( _sprintf (1 , , (. , &U _buffer :s 1C -> 22 `i -> 48 `i ]
-"88
-[; ;main.c: 88:     putrsUSBUSART(buffer);
+"117
+[; ;main.c: 117:     putrsUSBUSART(buffer);
 [e ( _putrsUSBUSART (1 -> &U _buffer `*Cuc ]
-"89
-[; ;main.c: 89:  }
+"118
+[; ;main.c: 118:  }
+}
+[e :U 713 ]
+"119
+[; ;main.c: 119:  _delay((unsigned long)((20)*(48000000/4000.0)));
+[e ( __delay (1 -> * -> -> 20 `i `d / -> -> 48000000 `l `d .4000.0 `ul ]
+"121
+[; ;main.c: 121:  }
 }
 [e :U 712 ]
-"90
-[; ;main.c: 90:  _delay((unsigned long)((20)*(48000000/4000.0)));
-[e ( __delay (1 -> * -> -> 20 `i `d / -> -> 48000000 `l `d .4000.0 `ul ]
-"92
-[; ;main.c: 92:  }
-}
-[e :U 711 ]
-"93
-[; ;main.c: 93:  CDCTxService();
+"122
+[; ;main.c: 122:  CDCTxService();
 [e ( _CDCTxService ..  ]
-"94
-[; ;main.c: 94: }
-[e :UE 709 ]
+"123
+[; ;main.c: 123: }
+[e :UE 710 ]
 }
 [p f _sprintf 8912896 ]
 [a 1C 116 37 99 32 104 37 99 32 10 0 ]

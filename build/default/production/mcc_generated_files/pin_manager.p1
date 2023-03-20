@@ -14,9 +14,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "4003
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 4003: extern volatile unsigned char LATC __attribute__((address(0xF8B)));
 [v _LATC `Vuc ~T0 @X0 0 e@3979 ]
-"15204
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 15204: extern volatile __bit LATC0 __attribute__((address(0x7C58)));
-[v _LATC0 `Vb ~T0 @X0 0 e@31832 ]
 "5470
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f45k50.h: 5470: extern volatile unsigned char TRISE __attribute__((address(0xF96)));
 [v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
@@ -735,61 +732,58 @@ Version 4.0 HI-TECH Software Intermediate Code
 "64
 [; ;mcc_generated_files/pin_manager.c: 64:     LATC = 0x00;
 [e = _LATC -> -> 0 `i `uc ]
-"65
-[; ;mcc_generated_files/pin_manager.c: 65:     LATC0=1;
-[e = _LATC0 -> -> 1 `i `b ]
-"70
-[; ;mcc_generated_files/pin_manager.c: 70:     TRISE = 0x07;
+"69
+[; ;mcc_generated_files/pin_manager.c: 69:     TRISE = 0x07;
 [e = _TRISE -> -> 7 `i `uc ]
-"71
-[; ;mcc_generated_files/pin_manager.c: 71:     TRISA = 0xFF;
+"70
+[; ;mcc_generated_files/pin_manager.c: 70:     TRISA = 0xFF;
 [e = _TRISA -> -> 255 `i `uc ]
-"72
-[; ;mcc_generated_files/pin_manager.c: 72:     TRISB = 0xFF;
+"71
+[; ;mcc_generated_files/pin_manager.c: 71:     TRISB = 0xFF;
 [e = _TRISB -> -> 255 `i `uc ]
-"73
-[; ;mcc_generated_files/pin_manager.c: 73:     TRISC = 0xC0;
+"72
+[; ;mcc_generated_files/pin_manager.c: 72:     TRISC = 0xC0;
 [e = _TRISC -> -> 192 `i `uc ]
-"74
-[; ;mcc_generated_files/pin_manager.c: 74:     TRISD = 0xFF;
+"73
+[; ;mcc_generated_files/pin_manager.c: 73:     TRISD = 0xFF;
 [e = _TRISD -> -> 255 `i `uc ]
-"79
-[; ;mcc_generated_files/pin_manager.c: 79:     ANSELD = 0xFF;
+"78
+[; ;mcc_generated_files/pin_manager.c: 78:     ANSELD = 0xFF;
 [e = _ANSELD -> -> 255 `i `uc ]
-"80
-[; ;mcc_generated_files/pin_manager.c: 80:     ANSELC = 0xC4;
+"79
+[; ;mcc_generated_files/pin_manager.c: 79:     ANSELC = 0xC4;
 [e = _ANSELC -> -> 196 `i `uc ]
-"81
-[; ;mcc_generated_files/pin_manager.c: 81:     ANSELB = 0x3F;
+"80
+[; ;mcc_generated_files/pin_manager.c: 80:     ANSELB = 0x3F;
 [e = _ANSELB -> -> 63 `i `uc ]
-"82
-[; ;mcc_generated_files/pin_manager.c: 82:     ANSELE = 0x07;
+"81
+[; ;mcc_generated_files/pin_manager.c: 81:     ANSELE = 0x07;
 [e = _ANSELE -> -> 7 `i `uc ]
-"83
-[; ;mcc_generated_files/pin_manager.c: 83:     ANSELA = 0x2F;
+"82
+[; ;mcc_generated_files/pin_manager.c: 82:     ANSELA = 0x2F;
 [e = _ANSELA -> -> 47 `i `uc ]
-"88
-[; ;mcc_generated_files/pin_manager.c: 88:     WPUB = 0x00;
+"87
+[; ;mcc_generated_files/pin_manager.c: 87:     WPUB = 0x00;
 [e = _WPUB -> -> 0 `i `uc ]
-"89
-[; ;mcc_generated_files/pin_manager.c: 89:     INTCON2bits.nRBPU = 1;
+"88
+[; ;mcc_generated_files/pin_manager.c: 88:     INTCON2bits.nRBPU = 1;
 [e = . . _INTCON2bits 1 7 -> -> 1 `i `uc ]
-"98
-[; ;mcc_generated_files/pin_manager.c: 98: }
+"97
+[; ;mcc_generated_files/pin_manager.c: 97: }
 [e :UE 636 ]
 }
-"100
-[; ;mcc_generated_files/pin_manager.c: 100: void PIN_MANAGER_IOC(void)
+"99
+[; ;mcc_generated_files/pin_manager.c: 99: void PIN_MANAGER_IOC(void)
 [v _PIN_MANAGER_IOC `(v ~T0 @X0 1 ef ]
-"101
-[; ;mcc_generated_files/pin_manager.c: 101: {
+"100
+[; ;mcc_generated_files/pin_manager.c: 100: {
 {
 [e :U _PIN_MANAGER_IOC ]
 [f ]
-"103
-[; ;mcc_generated_files/pin_manager.c: 103:     INTCONbits.IOCIF = 0;
+"102
+[; ;mcc_generated_files/pin_manager.c: 102:     INTCONbits.IOCIF = 0;
 [e = . . _INTCONbits 0 0 -> -> 0 `i `uc ]
-"104
-[; ;mcc_generated_files/pin_manager.c: 104: }
+"103
+[; ;mcc_generated_files/pin_manager.c: 103: }
 [e :UE 637 ]
 }

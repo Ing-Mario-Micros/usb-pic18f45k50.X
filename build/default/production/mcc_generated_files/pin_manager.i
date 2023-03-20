@@ -8023,7 +8023,6 @@ void PIN_MANAGER_Initialize(void)
     LATA = 0x00;
     LATB = 0x00;
     LATC = 0x00;
-    LATC0=1;
 
 
 
@@ -8048,7 +8047,7 @@ void PIN_MANAGER_Initialize(void)
 
     WPUB = 0x00;
     INTCON2bits.nRBPU = 1;
-# 98 "mcc_generated_files/pin_manager.c"
+# 97 "mcc_generated_files/pin_manager.c"
 }
 
 void PIN_MANAGER_IOC(void)

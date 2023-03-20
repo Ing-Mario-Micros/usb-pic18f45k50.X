@@ -9298,17 +9298,36 @@ void main(void)
 
 
  SYSTEM_Initialize();
-# 73 "main.c"
- while (1)
- {
- USBDeviceTasks();
- USBTask();
+# 75 "main.c"
+    T0CON=0b00000110;
+# 85 "main.c"
+    TMR0L=18661 & 255;
+    TMR0H=18661 >> 8;
+    TMR0ON=1;
+
+    TMR0IF=0;
+
+ while (1){
+    USBDeviceTasks();
+    USBTask();
+    if(TMR0IF==1){
+        LATC0=LATC0 ^ 1;
+        TMR0L=18661 & 255;
+
+
+
+
+        TMR0H=18661 >> 8;
+
+        TMR0IF=0;
+
+    }
 
  }
 }
 void USBTask(void){
  if(USBDeviceState < CONFIGURED_STATE || (UCONbits.SUSPND == 1))
-return;
+    return;
  uint8_t READ = getsUSBUSART(USB_Out_Buffer,64);
  if((cdc_trf_state == 0))
  {
